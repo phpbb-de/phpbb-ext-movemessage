@@ -1,0 +1,7 @@
+services:
+    phpbbde.movemessage.listener:
+        class: phpbbde\movemessage\event\main_listener
+        arguments:
+            - @dbal.conn
+        tags:
+            - { name: event.listener }

@@ -1,0 +1,30 @@
+{
+	"name": "phpbbde/movemessage",
+	"type": "phpbb-extension",
+	"description": "Adds messages into viewtopic when a topic was moved",
+	"homepage": "https://github.com/phpbb-de/phpbb-ext-movemessage",
+	"version": "1.0.0",
+	"time": "2013-11-13",
+	"license": "GPL-2.0",
+	"authors": [
+		{
+			"name": "Joas Schilling",
+			"email": "nickvergessen@phpbb.de",
+			"homepage": "https://www.phpbb.de",
+			"role": "Developer"
+		},
+		{
+			"name": "Philipp Kordowich",
+			"email": "philippk@phpbb.de",
+			"homepage": "https://www.phpbb.de",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.3",
+		"phpbb/phpbb": "3.1.*@dev"
+	},
+	"extra": {
+		"display-name": "phpBB.de - Move Message"
+	}
+}
