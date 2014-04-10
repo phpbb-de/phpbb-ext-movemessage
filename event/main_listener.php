@@ -52,7 +52,7 @@ class main_listener implements EventSubscriberInterface
 	/** @var \phpbb\content_visibility */
 	protected $content_visibility;
 
-	/** @var \phpbb\db\driver\driver */
+	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
 	/** @var \phpbb\template\template */
@@ -66,11 +66,11 @@ class main_listener implements EventSubscriberInterface
 	*
 	* @param \phpbb\auth\auth			$auth
 	* @param \phpbb\content_visibility	$content_visibility
-	* @param \phpbb\db\driver\driver	$db
+	* @param \phpbb\db\driver\driver_interface	$db
 	* @param \phpbb\template\template	$template
 	* @param \phpbb\user				$user
 	*/
-	public function __construct(\phpbb\auth\auth $auth, \phpbb\content_visibility $content_visibility, \phpbb\db\driver\driver $db, \phpbb\template\template $template, \phpbb\user $user, $phpbb_root_path, $phpEx)
+	public function __construct(\phpbb\auth\auth $auth, \phpbb\content_visibility $content_visibility, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, $phpbb_root_path, $phpEx)
 	{
 		$this->auth = $auth;
 		$this->content_visibility = $content_visibility;
