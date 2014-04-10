@@ -70,13 +70,15 @@ class main_listener implements EventSubscriberInterface
 	* @param \phpbb\template\template	$template
 	* @param \phpbb\user				$user
 	*/
-	public function __construct(\phpbb\auth\auth $auth, \phpbb\content_visibility $content_visibility, \phpbb\db\driver\driver $db, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct(\phpbb\auth\auth $auth, \phpbb\content_visibility $content_visibility, \phpbb\db\driver\driver $db, \phpbb\template\template $template, \phpbb\user $user, $phpbb_root_path, $phpEx)
 	{
 		$this->auth = $auth;
 		$this->content_visibility = $content_visibility;
 		$this->db = $db;
 		$this->template = $template;
 		$this->user = $user;
+		$this->root_path = $phpbb_root_path;
+		$this->php_ext = $phpEx;
 	}
 
 	/**
@@ -101,7 +103,7 @@ class main_listener implements EventSubscriberInterface
 		// Get Information about topic moves
 		$limit_log_time = ($event['sort_days']) ? 'AND l.log_time >= ' . (time() - ($this->sort_days * 86400)) . ' ' : '';
 
-		$sql = 'SELECT l.*, u.username
+		$sql = 'SELECT l.*, u.username, user_colour
 			FROM ' . LOG_TABLE . ' l, ' . USERS_TABLE . ' u
 			WHERE l.log_type = ' . LOG_MOD . "
 				AND l.topic_id =  {$event['topic_id']}
@@ -128,6 +130,11 @@ class main_listener implements EventSubscriberInterface
 			}
 		}
 		$this->db->sql_freeresult($result);
+
+		if (!empty($this->move_messages))
+		{
+			$this->user->add_lang_ext('phpbbde/movemessage', 'movemessage');
+		}
 	}
 
 	/**
@@ -166,8 +173,7 @@ class main_listener implements EventSubscriberInterface
 					while (!empty($this->move_messages) && $this->move_messages[0]['log_time'] <= $event['row']['post_time'])
 					{
 						$move_message = array_shift($this->move_messages);
-//						$this->assign_move_message('postrow.post_message_before', $move_message);
-						$this->assign_move_message('postrow', $move_message);
+						$this->assign_move_message('postrow.post_message_before', $move_message);
 					}
 
 					if ($i + 1 == $end)
@@ -183,8 +189,7 @@ class main_listener implements EventSubscriberInterface
 						while (!empty($this->move_messages) && (!$next_post_time || $this->move_messages[0]['log_time'] <= $next_post_time))
 						{
 							$move_message = array_shift($this->move_messages);
-//							$this->assign_move_message('postrow.post_message_after', $move_message);
-							$this->assign_move_message('postrow', $move_message);
+							$this->assign_move_message('postrow.post_message_after', $move_message);
 						}
 					}
 				}
@@ -211,8 +216,7 @@ class main_listener implements EventSubscriberInterface
 					while (!empty($this->move_messages) && $this->move_messages[0]['log_time'] >= $event['row']['post_time'])
 					{
 						$move_message = array_shift($this->move_messages);
-//						$this->assign_move_message('postrow.post_message_before', $move_message);
-						$this->assign_move_message('postrow', $move_message);
+						$this->assign_move_message('postrow.post_message_before', $move_message);
 					}
 
 					// If we are on the last page, output the rest
@@ -221,8 +225,7 @@ class main_listener implements EventSubscriberInterface
 						while (!empty($this->move_messages))
 						{
 							$move_message = array_shift($this->move_messages);
-//							$this->assign_move_message('postrow.post_message_after', $move_message);
-							$this->assign_move_message('postrow', $move_message);
+							$this->assign_move_message('postrow.post_message_after', $move_message);
 						}
 					}
 				}
@@ -233,8 +236,7 @@ class main_listener implements EventSubscriberInterface
 				// First Page, First Post, ... display all messages
 				foreach ($this->move_messages as $move_message)
 				{
-//					$this->assign_move_message('postrow.post_message_before', $move_message);
-					$this->assign_move_message('postrow', $move_message);
+					$this->assign_move_message('postrow.post_message_before', $move_message);
 				}
 
 				// There is nothing more to display - reset array
@@ -258,7 +260,7 @@ class main_listener implements EventSubscriberInterface
 			FROM ' . POSTS_TABLE . '
 			WHERE topic_id = ' . (int) $this->topic_id . '
 				AND post_time > ' . (int) $min_post_time . '
-				' . $this->content_visibility->get_visibility_sql('post', $this->forum_id);
+				AND ' . $this->content_visibility->get_visibility_sql('post', $this->forum_id);
 		$result2 = $this->db->sql_query($sql);
 		$post_time = $this->db->sql_fetchfield('post_time');
 		$this->db->sql_freeresult($result2);
@@ -276,11 +278,17 @@ class main_listener implements EventSubscriberInterface
 	{
 		$log_data_ary = unserialize($data['log_data']);
 
+		$u_from_forum = append_sid($this->root_path . 'viewforum.' . $this->php_ext, 'f=' . $log_data_ary[2]);
+		$l_from_forum = '<a href="' . $u_from_forum . '">' . $log_data_ary[0] . '</a>';
+		$u_to_forum = append_sid($this->root_path . 'viewforum.' . $this->php_ext, 'f=' . $log_data_ary[3]);
+		$l_to_forum = '<a href="' . $u_to_forum . '">' . $log_data_ary[1] . '</a>';
+
 		$l_move_message = $this->user->lang(
 			'MOVED_MESSAGE',
-			$log_data_ary[0], $log_data_ary[1],
+			$l_from_forum,
+			$l_to_forum,
 			$this->user->format_date($data['log_time']),
-			$data['username']
+			get_username_string('full', $data['user_id'], $data['username'], $data['user_colour'])
 		);
 
 		$this->template->assign_block_vars($template_block, array(
