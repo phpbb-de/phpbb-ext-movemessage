@@ -150,7 +150,7 @@ class main_listener implements EventSubscriberInterface
 		$i = (int) $event['current_row_number'];
 		$end = (int) $event['end'];
 		$start = (int) $event['start'];
-		$total_posts = 0;//@todo Missing from event
+		$total_posts = (int) $event['total_posts'];
 
 		// Display Move Message information
 		if (!empty($this->move_messages))
