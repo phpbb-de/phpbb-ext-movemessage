@@ -1,0 +1,46 @@
+language: php
+php:
+  - 5.3.3
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+  - hhvm
+
+env:
+  global:
+    - EXTNAME="phpbbde/movemessage"
+    - SNIFF="0"
+    - PHPBB_BRANCH="ticket/12483" # - PHPBB_BRANCH="develop-ascraeus"
+  matrix:
+    - DB=mysql
+
+branches:
+  only:
+    - master
+    - /^develop-.*$/
+
+install:
+  - travis/prepare-phpbb.sh $EXTNAME $PHPBB_BRANCH
+  - cd ../../phpBB3
+  - travis/prepare-extension.sh $EXTNAME $PHPBB_BRANCH
+  - travis/setup-phpbb.sh $DB $TRAVIS_PHP_VERSION
+
+before_script:
+  - travis/setup-database.sh $DB $TRAVIS_PHP_VERSION
+
+script:
+  - sh -c "if [ '$SNIFF' != '0' ]; then travis/phing-sniff.sh $DB $TRAVIS_PHP_VERSION; fi"
+  - phpBB/vendor/bin/phpunit --configuration phpBB/ext/$EXTNAME/travis/phpunit-$DB-travis.xml --bootstrap ./tests/bootstrap.php
+
+matrix:
+  include:
+    - php: 5.4
+      env: DB=mariadb
+    - php: 5.4
+      env: DB=postgres
+    - php: 5.4
+      env: DB=sqlite3
+  allow_failures:
+    - php: hhvm
+  fast_finish: true
