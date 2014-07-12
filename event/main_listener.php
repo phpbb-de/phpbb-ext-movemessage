@@ -69,6 +69,8 @@ class main_listener implements EventSubscriberInterface
 	* @param \phpbb\db\driver\driver_interface	$db
 	* @param \phpbb\template\template	$template
 	* @param \phpbb\user				$user
+	* @param string				$phpbb_root_path
+	* @param string				$phpEx
 	*/
 	public function __construct(\phpbb\auth\auth $auth, \phpbb\content_visibility $content_visibility, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, $phpbb_root_path, $phpEx)
 	{
