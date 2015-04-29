@@ -1,27 +1,24 @@
 # phpBB 3.1 Extension - Move Message
 
-## Installation
+ A small extension, that displayes a short message in the topic, when it was moved from one forum to another.
 
-Clone into phpBB/ext/phpbbde/movemessage:
+Author: Joas Schilling, Philipp Kordowich
 
-    git clone https://github.com/phpbb-de/phpbb-ext-movemessage.git phpBB/ext/phpbbde/movemessage
+URL: https://www.phpbb.de
 
-Go to "ACP" > "Customise" > "Extensions" and enable the "phpBB.de - Move Message" extension.
+Version: 1.0.0
 
-## Tests and Continuous Integration
+## Install instructions:
+1. Download the extension
+2. Copy the whole archive content to: phpBB/ext/phpbbde/movemessage
+3. Go to your phpBB-Board > Admin Control Panel > Customise > Manage extensions > phpBB.de - Move Message: enable
 
-We use Travis-CI as a continous integration server and phpunit for our unit testing. See more information on the [phpBB development wiki](https://wiki.phpbb.com/Unit_Tests).
-To run the tests locally, you need to install phpBB from its Git repository. Afterwards run the following command from the phpBB Git repository's root:
-
-Windows:
-
-    phpBB\vendor\bin\phpunit.bat -c phpBB\ext\phpbbde\movemessage\phpunit.xml.dist
-
-others:
-
-    phpBB/vendor/bin/phpunit -c phpBB/ext/phpbbde/movemessage/phpunit.xml.dist
-
-[![Build Status](https://travis-ci.org/phpbb-de/phpbb-ext-movemessage.svg?branch=develop-ascraeus)](https://travis-ci.org/phpbb-de/phpbb-ext-movemessage)
+## Update instructions:
+1. Go to you phpBB-Board > Admin Control Panel > Customise > Manage extensions > phpBB.de - Move Message: disable
+2. Delete all files of the extension from phpBB/ext/phpbbde/movemessage
+3. Upload all the new files to the same locations
+4. Go to you phpBB-Board > Admin Control Panel > Customise > Manage extensions > phpBB.de - Move Message: enable
+5. Purge the board cache
 
 ## License
 
