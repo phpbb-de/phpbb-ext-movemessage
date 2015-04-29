@@ -1,10 +1,10 @@
 {
 	"name": "phpbbde/movemessage",
 	"type": "phpbb-extension",
-	"description": "Adds messages into viewtopic when a topic was moved",
+	"description": "Adds messages into viewtopic when a topic was moved.",
 	"homepage": "https://github.com/phpbb-de/phpbb-ext-movemessage",
 	"version": "1.0.0",
-	"time": "2013-11-13",
+	"time": "2015-04-29",
 	"license": "GPL-2.0",
 	"authors": [
 		{
