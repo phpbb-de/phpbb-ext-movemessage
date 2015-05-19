@@ -3,7 +3,7 @@
 /**
 *
 * @package phpBB.de Move Message
-* @copyright (c) 2014 phpBB.de
+* @copyright (c) 2015 phpBB.de
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
