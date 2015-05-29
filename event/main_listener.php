@@ -107,8 +107,8 @@ class main_listener implements EventSubscriberInterface
 
 		$sql = 'SELECT l.*, u.username, user_colour
 			FROM ' . LOG_TABLE . ' l, ' . USERS_TABLE . ' u
-			WHERE l.log_type = ' . LOG_MOD . "
-				AND l.topic_id =  {$event['topic_id']}
+			WHERE l.log_type = ' . LOG_MOD . '
+				AND l.topic_id =  ' . (int) $event['topic_id'] . "
 				AND l.log_operation = 'LOG_MOVE'
 				$limit_log_time
 				AND l.user_id = u.user_id
@@ -263,9 +263,9 @@ class main_listener implements EventSubscriberInterface
 			WHERE topic_id = ' . (int) $this->topic_id . '
 				AND post_time > ' . (int) $min_post_time . '
 				AND ' . $this->content_visibility->get_visibility_sql('post', $this->forum_id);
-		$result2 = $this->db->sql_query($sql);
+		$result = $this->db->sql_query($sql);
 		$post_time = $this->db->sql_fetchfield('post_time');
-		$this->db->sql_freeresult($result2);
+		$this->db->sql_freeresult($result);
 
 		return (int) $post_time;
 	}
