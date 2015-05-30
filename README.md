@@ -1,6 +1,6 @@
 # phpBB 3.1 Extension - Move Message
 
- A small extension, that displayes a short message in the topic, when it was moved from one forum to another.
+ A small extension, that displays a short message in the topic, when it was moved from one forum to another.
 
 Author: Joas Schilling, Philipp Kordowich
 
