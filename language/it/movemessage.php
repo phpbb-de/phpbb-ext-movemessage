@@ -1,6 +1,6 @@
 <?php
 /**
-* Move Message [English]
+* Move Message [Italian]
 *
 * @package phpBB.de Move Message
 * @copyright (c) 2015 phpBB.de
