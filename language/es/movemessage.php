@@ -17,5 +17,5 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'MOVED_MESSAGE'				=> 'Movido desde <strong>%1$s</strong> a <strong>%2$s</strong> el %4$s por <strong>%3$s</strong>',
+	'MOVED_MESSAGE'				=> 'Movido desde <strong>%1$s</strong> a <strong>%2$s</strong> el %3$s por <strong>%4$s</strong>',
 ));
