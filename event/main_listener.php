@@ -289,8 +289,8 @@ class main_listener implements EventSubscriberInterface
 			'MOVED_MESSAGE',
 			$l_from_forum,
 			$l_to_forum,
-			get_username_string('full', $data['user_id'], $data['username'], $data['user_colour']),
-			$this->user->format_date($data['log_time'])
+			$this->user->format_date($data['log_time']),
+			get_username_string('full', $data['user_id'], $data['username'], $data['user_colour'])
 		);
 
 		$this->template->assign_block_vars($template_block, array(
