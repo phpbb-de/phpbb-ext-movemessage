@@ -17,6 +17,5 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-<<<<<<< HEAD
 	'MOVED_MESSAGE'				=> 'Spostato dal forum <strong>%1$s</strong> al forum <strong>%2$s</strong> il <strong>%4$s</strong> da %3$s', // variables order: source forum, destination forum, time, moderator
 ));
