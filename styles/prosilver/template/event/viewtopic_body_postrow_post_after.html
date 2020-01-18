@@ -1,7 +1,7 @@
-<!-- BEGIN postrow.post_message_after -->
+{% for post_message_after in postrow.post_message_after %}
 	<div class="panel">
-		<div class="inner">{postrow.post_message_after.MESSAGE}</div>
+		<div class="inner">{{ post_message_after.MESSAGE }}</div>
 	</div>
 
 	<hr class="divider" />
-<!-- END postrow.post_message_after -->
+{% endfor %}

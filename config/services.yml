@@ -2,12 +2,12 @@ services:
     phpbbde.movemessage.listener:
         class: phpbbde\movemessage\event\main_listener
         arguments:
-            - @auth
-            - @content.visibility
-            - @dbal.conn
-            - @template
-            - @user
-            - %core.root_path%
-            - %core.php_ext%
+            - '@auth'
+            - '@content.visibility'
+            - '@dbal.conn'
+            - '@template'
+            - '@user'
+            - '%core.root_path%'
+            - '%core.php_ext%'
         tags:
-            - { name: event.listener }
+            - {name: event.listener}

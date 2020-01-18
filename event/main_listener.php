@@ -58,6 +58,9 @@ class main_listener implements EventSubscriberInterface
 	/** @var \phpbb\template\template */
 	protected $template;
 
+	/** @var \phpbb\language\language $language */
+	protected $language;
+
 	/** @var \phpbb\user */
 	protected $user;
 
@@ -68,16 +71,18 @@ class main_listener implements EventSubscriberInterface
 	* @param \phpbb\content_visibility	$content_visibility
 	* @param \phpbb\db\driver\driver_interface	$db
 	* @param \phpbb\template\template	$template
+	* @param \phpbb\language\language $language
 	* @param \phpbb\user				$user
 	* @param string				$phpbb_root_path
 	* @param string				$phpEx
 	*/
-	public function __construct(\phpbb\auth\auth $auth, \phpbb\content_visibility $content_visibility, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, $phpbb_root_path, $phpEx)
+	public function __construct(\phpbb\auth\auth $auth, \phpbb\content_visibility $content_visibility, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\language\language $language, \phpbb\user $user, $phpbb_root_path, $phpEx)
 	{
 		$this->auth = $auth;
 		$this->content_visibility = $content_visibility;
 		$this->db = $db;
 		$this->template = $template;
+		$this->language = $language;
 		$this->user = $user;
 		$this->root_path = $phpbb_root_path;
 		$this->php_ext = $phpEx;
@@ -135,7 +140,7 @@ class main_listener implements EventSubscriberInterface
 
 		if (!empty($this->move_messages))
 		{
-			$this->user->add_lang_ext('phpbbde/movemessage', 'movemessage');
+			$this->language->add_lang('movemessage', 'phpbbde/movemessage');
 		}
 	}
 

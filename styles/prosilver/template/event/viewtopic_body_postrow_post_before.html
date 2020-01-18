@@ -1,7 +1,7 @@
-<!-- BEGIN postrow.post_message_before -->
+{% for post_message_before in postrow.post_message_before %}
 	<div class="panel">
-		<div class="inner">{postrow.post_message_before.MESSAGE}</div>
+		<div class="inner">{{ post_message_before.MESSAGE }}</div>
 	</div>
 
 	<hr class="divider" />
-<!-- END postrow.post_message_before -->
+{% endfor %}
