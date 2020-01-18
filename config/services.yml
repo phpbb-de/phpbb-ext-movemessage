@@ -6,6 +6,7 @@ services:
             - '@content.visibility'
             - '@dbal.conn'
             - '@template'
+            - '@language'
             - '@user'
             - '%core.root_path%'
             - '%core.php_ext%'
